@@ -103,6 +103,8 @@ app.get("/translate",  (req, resp) => {
 app.use((req, res) => {
     res.status(404).send("Unknown request");
 })
-app.listen(port, () => {
+var server = app.listen(port, () => {
     console.log(`On port ${port}`);
-})
+});
+
+server.timeout = 4000;
