@@ -59,19 +59,25 @@ app.post('/translate', async (req, resp) => {
     }
 });
 app.get("/translate",  (req, resp) => {
-    console.log("*******");
+    console.log("*** GET ****");
     if (req.body.text && req.body.text.length > 0) {
+        
+        console.log(req.body.text);
+
         if (!req.body.to) {
             req.body.to = "en";
         }
         if (req.body.to) {
             if (req.body.from) {
 
+                console.log(req.body.from);
+                console.log(req.body.to);
                 (async () => {
                     const translatedText = await translate(req.body.text, {
                         from: req.body.from,
                         to: req.body.to
                     });
+                    console.log(translatedText);
                     resp.status(200).send(translatedText);
                     console.log(translatedText); // こんにちは世界
                 })();
