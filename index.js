@@ -3,21 +3,15 @@ const bodyParser = require('body-parser');
 const app = express();
 var cors = require('cors');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 6000;
 
-const {
-    translate
-} = require('free-translate');
+const {translate } = require('free-translate');
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({
-    limit: '200mb',
-    extended: true
-}))
-app.use(bodyParser.json({
-    limit: '200mb'
-}));
+app.use(bodyParser.urlencoded({limit: '200mb',extended: true}));
+
+app.use(bodyParser.json({limit: '200mb'}));
 
 app.post("/", (req, resp) => {
     console.log('/POST');
@@ -54,6 +48,7 @@ app.post('/translate', async (req, resp) => {
                         to: req.body.to
                     });
                     console.log(translatedText); // これはカッコいい！
+                    resp.status(200).send(translatedText);
                 })();
             }
         } else {
@@ -63,7 +58,7 @@ app.post('/translate', async (req, resp) => {
         resp.status(404).send("Bad Request");
     }
 });
-app.get("/translate", async (req, resp) => {
+app.get("/translate",  (req, resp) => {
     console.log("*******");
     if (req.body.text && req.body.text.length > 0) {
         if (!req.body.to) {
@@ -87,6 +82,7 @@ app.get("/translate", async (req, resp) => {
                         to: req.body.to
                     });
                     console.log(translatedText); // これはカッコいい！
+                    resp.status(200).send(translatedText);
                 })();
             }
         } else {
