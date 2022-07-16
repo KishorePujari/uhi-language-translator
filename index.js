@@ -107,4 +107,4 @@ var server = app.listen(port, () => {
     console.log(`On port ${port}`);
 });
 
-server.timeout = 120000;
+server.timeout = 0;
